@@ -1,14 +1,17 @@
 [tool.poetry]
-name = "ecommerce"
+name = "ecom"
 version = "0.1.0"
-description = ""
-authors = ["Leo_-py"]
+description = "Ecommerce API project"
+authors = ["Vitaly Sofronyuk <Gilion@icloud.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-fastapi = "^0.104.0"
-uvicorn = {extras = ["standard"], version = "^0.23.2"}
+fastapi = "^0.104.1"
+sqlalchemy = "^2.0.23"
+alembic = "^1.13.0"
+uvicorn = "^0.24.0.post1"
+pydantic-settings = "^2.1.0"
 
 
 [build-system]

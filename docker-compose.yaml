@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+#================================
+#      POSTGRES
+#================================
+  fast-ecom-postgresql:
+    image: postgres:14-alpine
+    container_name: fast-ecom-postgresql
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - ../.data/fast-ecom-postgresql:/var/lib/postgresql/data/
+    env_file:
+      - .env.fast-ecomdb
+
+
+#================================
+#       API APPLICATION
+#================================
+  fast-ecom-api:
+    build:
+      context: .
+      dockerfile: ./ecom/Dockerfile
+    image: fast-ecom-api
+    restart: on-failure
+    container_name: fast-ecom-api
+    env_file:
+      - ./ecom/.env.fast-ecom
+    ports:
+      - "7000:7000"
+    depends_on:
+      - fast-ecom-postgresql

@@ -13,13 +13,13 @@ RUN addgroup -S web_ecom && adduser -S docker_admin -G web_ecom \
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
    
-COPY poetry.lock pyproject.toml ./
+COPY ./ecom/poetry.lock ./ecom/pyproject.toml ./ecom/entrypoint.sh ./
 
 RUN pip install "poetry==1.7.1" \
         && poetry config virtualenvs.create false \
         && poetry install --no-interaction --no-ansi
 
-COPY ./src .
+COPY ./ecom/src .
 USER docker_admin
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
+ENTRYPOINT ["./entrypoint.sh"]
